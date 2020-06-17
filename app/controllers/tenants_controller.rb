@@ -35,16 +35,17 @@ class TenantsController < ApplicationController
 
   patch '/tenants/:id' do
       
-    @tenant = find_tenant
-    @tenant.update(name: params[:tenant][:name])
+    tenant = find_tenant
+    tenant.update(name: params[:tenant][:name])
     
     unless params[:apartment][:address].empty?
-      @apartment = Apartment.create(address: params[:apartment][:address])
-      @tenant.apartment = @apartment
+      apartment = Apartment.create(address: params[:apartment][:address])
+      tenant.apartment = apartment
     else 
-      @tenant.apartment.id = params[:tenant][:apartment_id]
+      tenant.apartment_id = params[:tenant][:apartment_id]
+      # binding.pry
     end
-    @tenant.save 
+    tenant.save 
     redirect '/tenants'
   end
 
