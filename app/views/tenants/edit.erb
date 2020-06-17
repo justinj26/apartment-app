@@ -1,1 +1,27 @@
+<h3>Here's a page to edit tenant info:</h3>
 
+<form action="/tenants/<%= @tenant.id %>" method="POST">
+<input type="hidden" name="_method" value="patch">
+
+<label>Name: </label>
+<input type="text" name="tenant[name]" value="<%= @tenant.name %>">
+
+<label>Current Apartment: <%= @tenant.apartment.address %></label>
+<select name="tenant[apartment_id]" >
+    <option disabled selected> --Select an Apartment --</option>
+    <% @apartments.each do |apartment| %>
+        <option value="<%= apartment.id %>">><%= apartment.address %></option>
+    <% end %>
+</select>
+
+<label>Or, create a new apartment: </label>
+<input type="text" name="apartment[address]">
+
+<input type="submit" value="Update Tenant">
+</form>
+
+<form action="/tenants/<%= @tenant.id %>" method="POST">
+<input type="hidden" name="_method" value="DELETE">
+
+<input type="submit" value="delete tenant">
+</form>
